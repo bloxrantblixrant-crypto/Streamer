@@ -1,0 +1,5990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Streamer University</title>
+
+<style>
+:root{
+  --bg:#07090d;
+  --panel:#0d1118;
+  --panel2:#111722;
+  --panel3:#161d29;
+  --line:#222b39;
+  --text:#f5f7fb;
+  --muted:#8994a6;
+  --accent:#7657ff;
+  --accent2:#9a84ff;
+  --green:#40d37d;
+  --red:#ff5966;
+  --yellow:#ffc857;
+  --scale:1;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* AUTH */
+
+.auth{
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(118,87,255,.18),transparent 30%),
+    radial-gradient(circle at 80% 90%,rgba(70,120,255,.08),transparent 30%),
+    var(--bg);
+}
+
+.auth-box{
+  width:min(430px,100%);
+  background:rgba(13,17,24,.96);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:32px;
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+  animation:appear .4s ease;
+}
+
+.logo{
+  font-size:23px;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+
+.logo span{
+  color:var(--accent2);
+}
+
+.auth-desc{
+  color:var(--muted);
+  margin:9px 0 27px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.field{
+  margin-bottom:15px;
+}
+
+.field label{
+  display:block;
+  margin-bottom:7px;
+  color:#aab3c1;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.input,
+.textarea,
+.select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:#080c12;
+  color:white;
+  outline:none;
+  padding:13px;
+  transition:.2s;
+}
+
+.textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(118,87,255,.12);
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:14px;
+  color:white;
+  background:var(--accent);
+  font-weight:900;
+  transition:.2s;
+}
+
+.primary:hover{
+  background:var(--accent2);
+  transform:translateY(-1px);
+}
+
+.error{
+  min-height:18px;
+  color:var(--red);
+  font-size:12px;
+  margin-top:10px;
+}
+
+.note{
+  margin-top:18px;
+  padding:12px;
+  border-radius:11px;
+  border:1px solid var(--line);
+  background:#10151d;
+  color:#697587;
+  font-size:11px;
+  line-height:1.5;
+}
+
+/* APP */
+
+.app{
+  min-height:100vh;
+}
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:250px;
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  padding:20px 13px;
+  background:#090c12;
+  border-right:1px solid var(--line);
+  transition:transform .25s ease;
+}
+
+.sidebar-logo{
+  padding:7px 10px 25px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav-label{
+  margin:18px 11px 7px;
+  color:#4f5969;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1.2px;
+}
+
+.nav-btn{
+  width:100%;
+  border:1px solid transparent;
+  border-radius:10px;
+  padding:12px;
+  background:transparent;
+  color:#8490a2;
+  text-align:left;
+  font-size:12px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.nav-btn:hover{
+  background:#111722;
+  color:white;
+}
+
+.nav-btn.active{
+  color:white;
+  background:#18132a;
+  border-color:#32295a;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+}
+
+.mini-user{
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:#0d1219;
+  padding:12px;
+}
+
+.mini-user strong{
+  display:block;
+  font-size:12px;
+}
+
+.mini-user span{
+  display:block;
+  color:#6d7889;
+  margin-top:3px;
+  font-size:10px;
+}
+
+.logout{
+  width:100%;
+  margin-top:8px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:transparent;
+  color:#8994a6;
+  padding:10px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.logout:hover{
+  background:#171019;
+  color:#ff727b;
+}
+
+.main{
+  min-height:100vh;
+  margin-left:250px;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:80;
+  height:68px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 28px;
+  background:rgba(7,9,13,.86);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(16px);
+}
+
+.menu{
+  display:none;
+  width:40px;
+  height:40px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#111722;
+  color:white;
+  font-size:20px;
+}
+
+.top-title{
+  font-size:15px;
+  font-weight:900;
+}
+
+.top-space{
+  flex:1;
+}
+
+.top-user{
+  color:#707b8c;
+  font-size:12px;
+}
+
+.page{
+  width:min(1500px,100%);
+  margin:auto;
+  padding:30px;
+  animation:up .3s ease;
+}
+
+.head{
+  display:flex;
+  align-items:flex-start;
+  gap:15px;
+  margin-bottom:24px;
+}
+
+.head-main{
+  flex:1;
+}
+
+.title{
+  margin:0;
+  font-size:clamp(26px,4vw,36px);
+  font-weight:950;
+  letter-spacing:-1.5px;
+}
+
+.subtitle{
+  margin:7px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.grid{
+  display:grid;
+  gap:15px;
+}
+
+.stats{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+
+.two{
+  grid-template-columns:1.4fr 1fr;
+  margin-top:15px;
+}
+
+.card{
+  min-width:0;
+  background:linear-gradient(145deg,#0e131b,#0b0f15);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:19px;
+  transition:.2s;
+}
+
+.card:hover{
+  border-color:#303a4a;
+}
+
+.stat-label{
+  color:#6e798b;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+.stat-value{
+  margin-top:7px;
+  font-size:29px;
+  font-weight:950;
+}
+
+.stat-sub{
+  margin-top:4px;
+  color:#596577;
+  font-size:10px;
+}
+
+.section{
+  margin:0 0 14px;
+  font-size:15px;
+  font-weight:900;
+}
+
+.course-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.course-title{
+  font-size:18px;
+  font-weight:900;
+}
+
+.course-desc{
+  min-height:40px;
+  margin-top:7px;
+  color:#7d889a;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.progress-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin:15px 0 7px;
+  color:#758093;
+  font-size:10px;
+  font-weight:800;
+}
+
+.progress{
+  height:7px;
+  overflow:hidden;
+  border-radius:50px;
+  background:#1b2330;
+}
+
+.progress span{
+  display:block;
+  width:0;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:width .7s ease;
+}
+
+.buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.btn{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 12px;
+  background:#111722;
+  color:white;
+  font-size:11px;
+  font-weight:850;
+  transition:.18s;
+}
+
+.btn:hover{
+  background:#1a2230;
+  border-color:#374253;
+  transform:translateY(-1px);
+}
+
+.btn.primary-btn{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.btn.primary-btn:hover{
+  background:var(--accent2);
+}
+
+.btn.danger{
+  color:#ff7881;
+  background:#180d11;
+  border-color:#402027;
+}
+
+.btn.success{
+  color:#60df94;
+  background:#0d1913;
+  border-color:#204532;
+}
+
+.empty{
+  padding:25px;
+  text-align:center;
+  color:#606c7e;
+  font-size:12px;
+}
+
+/* LESSONS */
+
+.lesson-list{
+  display:grid;
+  gap:8px;
+}
+
+.lesson{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#0b1017;
+}
+
+.lesson-number{
+  flex:none;
+  width:31px;
+  height:31px;
+  display:grid;
+  place-items:center;
+  border-radius:8px;
+  background:#171e29;
+  color:#9ba5b4;
+  font-size:10px;
+  font-weight:900;
+}
+
+.lesson-info{
+  flex:1;
+  min-width:0;
+}
+
+.lesson-name{
+  font-size:12px;
+  font-weight:850;
+}
+
+.lesson-meta{
+  margin-top:3px;
+  color:#657184;
+  font-size:10px;
+}
+
+.done{
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+}
+
+/* ANNOUNCEMENTS */
+
+.announcement{
+  margin-bottom:9px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#0c1118;
+}
+
+.announcement:last-child{
+  margin-bottom:0;
+}
+
+.announcement-title{
+  font-size:13px;
+  font-weight:900;
+}
+
+.announcement-message{
+  margin-top:5px;
+  color:#8994a5;
+  font-size:11px;
+  line-height:1.55;
+}
+
+.announcement-date{
+  margin-top:8px;
+  color:#5d6879;
+  font-size:9px;
+}
+
+/* BADGES */
+
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border:1px solid var(--line);
+  border-radius:50px;
+  font-size:9px;
+  font-weight:900;
+}
+
+.badge.active{
+  color:#5ee291;
+  border-color:#214733;
+  background:#0d1913;
+}
+
+.badge.suspended{
+  color:#ff717b;
+  border-color:#422029;
+  background:#190d11;
+}
+
+/* ADMIN */
+
+.tabs{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding-bottom:5px;
+  margin-bottom:15px;
+}
+
+.tab{
+  flex:none;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#0d1219;
+  color:#737e90;
+  padding:9px 12px;
+  font-size:10px;
+  font-weight:900;
+}
+
+.tab.active{
+  background:#19142b;
+  color:white;
+  border-color:#342a5c;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+
+table{
+  width:100%;
+  min-width:720px;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:12px;
+  text-align:left;
+  border-bottom:1px solid var(--line);
+  font-size:11px;
+}
+
+th{
+  color:#667183;
+  background:#0b0f15;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+
+td{
+  color:#b6bfcc;
+}
+
+tr:last-child td{
+  border-bottom:0;
+}
+
+.command-layout{
+  grid-template-columns:1.3fr 1fr;
+}
+
+.command-input{
+  display:flex;
+  gap:7px;
+}
+
+.command-input .input{
+  flex:1;
+}
+
+.command-output{
+  height:230px;
+  margin-top:10px;
+  overflow:auto;
+  padding:12px;
+  border:1px solid #1d2531;
+  border-radius:12px;
+  background:#06090d;
+  color:#9aa5b6;
+  font:10px ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+.command-line{
+  margin-bottom:6px;
+}
+
+.command-line.info{
+  color:#9a86ff;
+}
+
+.command-line.ok{
+  color:#5fdf92;
+}
+
+.command-line.err{
+  color:#ff727c;
+}
+
+.command-help{
+  padding:10px;
+  margin-bottom:7px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#0b1017;
+}
+
+.command-help code{
+  color:#ad9eff;
+  font-size:10px;
+}
+
+.command-help div{
+  margin-top:4px;
+  color:#667284;
+  font-size:10px;
+}
+
+/* MODAL */
+
+.modal-layer{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(8px);
+  animation:fade .18s ease;
+}
+
+.modal{
+  width:min(540px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:21px;
+  border:1px solid #2b3545;
+  border-radius:19px;
+  background:#0d1219;
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+  animation:modalIn .2s ease;
+}
+
+.modal-head{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.modal-head-main{
+  flex:1;
+}
+
+.modal-title{
+  margin:0;
+  font-size:18px;
+  font-weight:900;
+}
+
+.modal-sub{
+  margin-top:4px;
+  color:#687486;
+  font-size:10px;
+}
+
+.close{
+  flex:none;
+  width:34px;
+  height:34px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#111722;
+  color:#9ca6b5;
+  font-size:20px;
+  line-height:1;
+}
+
+.close:hover{
+  color:white;
+  background:#1a202c;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:18px;
+}
+
+/* OVERLAY */
+
+.mobile-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:90;
+  background:rgba(0,0,0,.6);
+}
+
+/* TOAST */
+
+.toasts{
+  position:fixed;
+  right:17px;
+  bottom:17px;
+  z-index:1000;
+  width:min(350px,calc(100% - 34px));
+  display:grid;
+  gap:7px;
+}
+
+.toast{
+  padding:13px;
+  border:1px solid #2c3543;
+  border-radius:12px;
+  background:#121923;
+  color:#e5e9ef;
+  font-size:11px;
+  box-shadow:0 15px 50px rgba(0,0,0,.4);
+  animation:toastIn .25s ease;
+}
+
+.toast.success{
+  border-color:#255039;
+}
+
+.toast.error{
+  border-color:#49232b;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1050px){
+  .stats{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .two,
+  .command-layout{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:800px){
+  .sidebar{
+    transform:translateX(-100%);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .mobile-overlay.open{
+    display:block;
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .top-user{
+    display:none;
+  }
+
+  .page{
+    padding:20px 15px;
+  }
+
+  .course-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:500px){
+  .auth{
+    padding:12px;
+  }
+
+  .auth-box{
+    padding:24px 18px;
+  }
+
+  .stats{
+    gap:9px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .stat-value{
+    font-size:22px;
+  }
+
+  .command-input{
+    flex-direction:column;
+  }
+
+  .command-input .btn{
+    width:100%;
+  }
+}
+
+@media(max-width:350px){
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .page{
+    padding:15px 11px;
+  }
+}
+
+/* ANIMATIONS */
+
+@keyframes appear{
+  from{opacity:0;transform:scale(.97)}
+  to{opacity:1;transform:scale(1)}
+}
+
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes up{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes modalIn{
+  from{opacity:0;transform:scale(.96) translateY(5px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes toastIn{
+  from{opacity:0;transform:translateX(20px)}
+  to{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="auth">
+  <div class="auth-box">
+
+    <div class="logo">
+      STREAMER <span>UNIVERSITY</span>
+    </div>
+
+    <div class="auth-desc">
+      Creator education, progress and community.
+    </div>
+
+    <form id="loginForm">
+
+      <div class="field">
+        <label>Username</label>
+        <input
+          id="loginUsername"
+          class="input"
+          autocomplete="username"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input
+          id="loginPassword"
+          class="input"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+      </div>
+
+      <button class="primary" type="submit">
+        Sign in
+      </button>
+
+      <div id="loginError" class="error"></div>
+    </form>
+
+    <div class="note">
+      Streamer accounts can only be created by the administrator.
+    </div>
+
+  </div>
+</div>
+
+
+<!-- APPLICATION -->
+<div id="application" class="app hidden">
+
+  <div id="mobileOverlay" class="mobile-overlay"></div>
+
+  <aside id="sidebar" class="sidebar">
+
+    <div class="sidebar-logo">
+      <div class="logo">
+        STREAMER <span>UNIVERSITY</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+
+      <button class="nav-btn" data-nav="dashboard">
+        Dashboard
+      </button>
+
+      <button class="nav-btn" data-nav="courses">
+        Courses
+      </button>
+
+      <button class="nav-btn" data-nav="announcements">
+        Announcements
+      </button>
+
+      <button class="nav-btn" data-nav="profile">
+        Profile
+      </button>
+
+      <div id="adminNavigation" class="hidden">
+        <div class="nav-label">ADMINISTRATION</div>
+
+        <button class="nav-btn" data-nav="admin">
+          Admin Panel
+        </button>
+      </div>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="mini-user">
+        <strong id="miniUsername"></strong>
+        <span id="miniRole"></span>
+      </div>
+
+      <button id="logoutButton" class="logout">
+        Log out
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <button id="menuButton" class="menu">
+        ≡
+      </button>
+
+      <div id="topTitle" class="top-title">
+        Dashboard
+      </div>
+
+      <div class="top-space"></div>
+
+      <div id="topUsername" class="top-user"></div>
+
+    </header>
+
+    <div id="content"></div>
+
+  </main>
+
+</div>
+
+
+<div id="modalRoot"></div>
+<div id="toastRoot" class="toasts"></div>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   DATABASE
+========================================================= */
+
+// PERSISTENT LOCAL DATABASE:
+// Accounts, XP, progress, courses and announcements are kept in localStorage.
+// Do NOT change DB_KEY when publishing updates, otherwise existing data would
+// appear to be a brand-new database.
+const DB_KEY = "STREAMER_UNIVERSITY_DB_10";
+const SCALE_KEY = "STREAMER_UNIVERSITY_SCALE_2";
+
+const DEFAULT_COURSES = [
+  {
+    id:"streaming",
+    title:"Streaming Fundamentals",
+    description:"Learn the fundamentals of becoming a better streamer.",
+    lessons:[
+      {
+        id:"streaming-1",
+        title:"Your First Stream",
+        text:"Learn how to prepare your stream, organize your setup and create a consistent starting routine."
+      },
+      {
+        id:"streaming-2",
+        title:"Audio and Video",
+        text:"Learn why clear audio, readable video and a stable setup are important for viewers."
+      },
+      {
+        id:"streaming-3",
+        title:"Going Live Professionally",
+        text:"Build a simple routine for starting, managing and ending your streams."
+      }
+    ]
+  },
+
+  {
+    id:"growth",
+    title:"Content & Growth",
+    description:"Learn how to turn streams into content and grow an audience.",
+    lessons:[
+      {
+        id:"growth-1",
+        title:"Finding Your Content",
+        text:"Learn how to identify content ideas that fit your personality and audience."
+      },
+      {
+        id:"growth-2",
+        title:"Titles and Thumbnails",
+        text:"Learn how clear titles and thumbnails help viewers immediately understand your content."
+      },
+      {
+        id:"growth-3",
+        title:"Consistency",
+        text:"Learn how to create a realistic content routine you can actually maintain."
+      }
+    ]
+  },
+
+  {
+    id:"branding",
+    title:"Creator Branding",
+    description:"Build a recognizable identity for your creator brand.",
+    lessons:[
+      {
+        id:"branding-1",
+        title:"Creator Identity",
+        text:"Define the qualities you want your audience to associate with your channel."
+      },
+      {
+        id:"branding-2",
+        title:"Visual Identity",
+        text:"Learn how names, layouts, graphics and design can create consistency."
+      },
+      {
+        id:"branding-3",
+        title:"Community Identity",
+        text:"Create recognizable traditions and ideas that make your community feel unique."
+      }
+    ]
+  },
+
+  {
+    id:"business",
+    title:"Creator Business",
+    description:"Understand the professional side of being a creator.",
+    lessons:[
+      {
+        id:"business-1",
+        title:"Planning",
+        text:"Learn how to plan content, projects and goals without overcomplicating everything."
+      },
+      {
+        id:"business-2",
+        title:"Communication",
+        text:"Learn the basics of clear communication with collaborators and your audience."
+      },
+      {
+        id:"business-3",
+        title:"Long-Term Growth",
+        text:"Build sustainable habits around learning, improving and reviewing your progress."
+      }
+    ]
+  }
+];
+
+function createDefaultDB(){
+
+  return {
+    version:10,
+
+    users:[
+      {
+        username:"Alteo",
+        password:"Alteo202",
+        role:"admin",
+        status:"active",
+        xp:0,
+        completed:[],
+        createdAt:new Date().toISOString()
+      }
+    ],
+
+    courses:JSON.parse(JSON.stringify(DEFAULT_COURSES)),
+
+    announcements:[
+      {
+        id:"welcome",
+        title:"Welcome to Streamer University",
+        message:"Your creator journey starts here. Complete lessons to earn XP and level up.",
+        createdAt:new Date().toISOString()
+      }
+    ]
+  };
+}
+
+function loadDatabase(){
+
+  try{
+
+    const saved=localStorage.getItem(DB_KEY);
+
+    if(!saved){
+      const fresh=createDefaultDB();
+      localStorage.setItem(DB_KEY,JSON.stringify(fresh));
+      return fresh;
+    }
+
+    const data=JSON.parse(saved);
+
+    if(
+      !data ||
+      !Array.isArray(data.users) ||
+      !Array.isArray(data.courses)
+    ){
+      throw new Error("Invalid database");
+    }
+
+    if(!Array.isArray(data.announcements)){
+      data.announcements=[];
+    }
+
+    data.users.forEach(user=>{
+      if(!Array.isArray(user.completed)){
+        user.completed=[];
+      }
+
+      if(typeof user.xp!=="number"){
+        user.xp=0;
+      }
+
+      if(!user.status){
+        user.status="active";
+      }
+    });
+
+    if(!data.users.some(
+      user=>user.username==="Alteo" && user.role==="admin"
+    )){
+      data.users.unshift({
+        username:"Alteo",
+        password:"Alteo202",
+        role:"admin",
+        status:"active",
+        xp:0,
+        completed:[],
+        createdAt:new Date().toISOString()
+      });
+    }
+
+    return data;
+
+  }catch(error){
+
+    const fresh=createDefaultDB();
+    localStorage.setItem(DB_KEY,JSON.stringify(fresh));
+    return fresh;
+  }
+}
+
+let database=loadDatabase();
+
+function saveDatabase(){
+  localStorage.setItem(
+    DB_KEY,
+    JSON.stringify(database)
+  );
+}
+
+function findUser(username){
+
+  if(!username) return null;
+
+  return database.users.find(
+    user=>user.username.toLowerCase()===String(username).toLowerCase()
+  ) || null;
+}
+
+function streamerList(){
+  return database.users.filter(
+    user=>user.role==="streamer"
+  );
+}
+
+function id(prefix){
+  return prefix+"_"+Date.now()+"_"+Math.random().toString(36).slice(2,7);
+}
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function levelFromXP(xp){
+  return Math.floor(Math.max(0,xp)/100)+1;
+}
+
+function xpProgress(xp){
+  return Math.max(0,xp)%100;
+}
+
+function totalLessons(){
+
+  return database.courses.reduce(
+    (total,course)=>total+course.lessons.length,
+    0
+  );
+}
+
+function completedLessons(user){
+  return Array.isArray(user.completed)
+    ? user.completed.length
+    : 0;
+}
+
+function coursePercent(user,course){
+
+  if(!course.lessons.length) return 0;
+
+  const done=course.lessons.filter(
+    lesson=>user.completed.includes(lesson.id)
+  ).length;
+
+  return Math.round(
+    done/course.lessons.length*100
+  );
+}
+
+function dateText(date){
+
+  try{
+    return new Date(date).toLocaleDateString(
+      undefined,
+      {
+        year:"numeric",
+        month:"short",
+        day:"numeric"
+      }
+    );
+  }catch{
+    return "Unknown";
+  }
+}
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser=null;
+let currentPage="dashboard";
+let currentCourse=null;
+let currentAdminTab="overview";
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+document
+.getElementById("loginForm")
+.addEventListener("submit",function(event){
+
+  event.preventDefault();
+
+  const username=document
+    .getElementById("loginUsername")
+    .value
+    .trim();
+
+  const password=document
+    .getElementById("loginPassword")
+    .value;
+
+  const error=document.getElementById("loginError");
+
+  const user=findUser(username);
+
+  if(!user || user.password!==password){
+
+    error.textContent="Invalid username or password.";
+    return;
+  }
+
+  if(user.status==="suspended"){
+
+    error.textContent="This account is suspended.";
+    return;
+  }
+
+  currentUser=user;
+
+  error.textContent="";
+
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("application")
+    .classList.remove("hidden");
+
+  updateUserUI();
+
+  navigate("dashboard");
+});
+
+
+function updateUserUI(){
+
+  document.getElementById("miniUsername")
+    .textContent=currentUser.username;
+
+  document.getElementById("miniRole")
+    .textContent=
+      currentUser.role==="admin"
+      ? "Administrator"
+      : "Streamer";
+
+  document.getElementById("topUsername")
+    .textContent=currentUser.username;
+
+  document
+    .getElementById("adminNavigation")
+    .classList.toggle(
+      "hidden",
+      currentUser.role!=="admin"
+    );
+}
+
+
+document
+.getElementById("logoutButton")
+.addEventListener("click",function(){
+
+  currentUser=null;
+  currentCourse=null;
+
+  closeModal();
+  closeMobileMenu();
+
+  document
+    .getElementById("application")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+
+  document.getElementById("loginUsername").value="";
+  document.getElementById("loginPassword").value="";
+  document.getElementById("loginError").textContent="";
+});
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+document
+.querySelectorAll("[data-nav]")
+.forEach(button=>{
+
+  button.addEventListener("click",function(){
+
+    navigate(this.dataset.nav);
+    closeMobileMenu();
+
+  });
+});
+
+
+function navigate(page,courseId=null){
+
+  if(page==="admin" && currentUser?.role!=="admin"){
+    page="dashboard";
+  }
+
+  currentPage=page;
+
+  currentCourse=courseId;
+
+  const titles={
+    dashboard:"Dashboard",
+    courses:"Courses",
+    announcements:"Announcements",
+    profile:"Profile",
+    admin:"Admin Panel"
+  };
+
+  document.getElementById("topTitle")
+    .textContent=titles[page] || "Dashboard";
+
+  document
+    .querySelectorAll("[data-nav]")
+    .forEach(button=>{
+      button.classList.toggle(
+        "active",
+        button.dataset.nav===page
+      );
+    });
+
+  render();
+}
+
+
+function render(){
+
+  const content=document.getElementById("content");
+
+  if(currentPage==="dashboard"){
+    content.innerHTML=renderDashboard();
+  }
+
+  else if(currentPage==="courses"){
+    content.innerHTML=renderCourses();
+  }
+
+  else if(currentPage==="announcements"){
+    content.innerHTML=renderAnnouncements();
+  }
+
+  else if(currentPage==="profile"){
+    content.innerHTML=renderProfile();
+  }
+
+  else if(currentPage==="admin"){
+    content.innerHTML=renderAdmin();
+  }
+
+  bindEvents();
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard(){
+
+  if(currentUser.role==="admin"){
+    return renderAdminDashboard();
+  }
+
+  const level=levelFromXP(currentUser.xp);
+  const progress=xpProgress(currentUser.xp);
+
+  const next=database.courses.find(
+    course=>coursePercent(currentUser,course)<100
+  );
+
+  return `
+  <div class="page">
+
+    <div class="head">
+      <div class="head-main">
+        <h1 class="title">
+          Welcome back, ${escapeHTML(currentUser.username)}.
+        </h1>
+
+        <p class="subtitle">
+          Keep learning, keep creating, keep leveling up.
+        </p>
+      </div>
+    </div>
+
+
+    <div class="grid stats">
+
+      <div class="card">
+        <div class="stat-label">LEVEL</div>
+        <div class="stat-value">${level}</div>
+        <div class="stat-sub">${progress}/100 XP</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">TOTAL XP</div>
+        <div class="stat-value">${currentUser.xp}</div>
+        <div class="stat-sub">Creator XP</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">LESSONS</div>
+        <div class="stat-value">${completedLessons(currentUser)}</div>
+        <div class="stat-sub">Completed</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">COURSES</div>
+        <div class="stat-value">
+          ${
+            database.courses.filter(
+              course=>coursePercent(currentUser,course)===100
+            ).length
+          }
+        </div>
+        <div class="stat-sub">Completed</div>
+      </div>
+
+    </div>
+
+
+    <div class="grid two">
+
+      <div class="card">
+
+        <h2 class="section">
+          Continue Learning
+        </h2>
+
+        ${
+          next
+          ? `
+            <div class="course-title">
+              ${escapeHTML(next.title)}
+            </div>
+
+            <div class="course-desc">
+              ${escapeHTML(next.description)}
+            </div>
+
+            <div class="progress-row">
+              <span>Progress</span>
+              <span>${coursePercent(currentUser,next)}%</span>
+            </div>
+
+            <div class="progress">
+              <span style="width:${coursePercent(currentUser,next)}%"></span>
+            </div>
+
+            <div class="buttons" style="margin-top:14px">
+              <button
+                class="btn primary-btn"
+                data-open-course="${escapeHTML(next.id)}"
+              >
+                Continue
+              </button>
+            </div>
+          `
+          : `
+            <div class="empty">
+              You completed every available course.
+            </div>
+          `
+        }
+
+      </div>
+
+
+      <div class="card">
+
+        <h2 class="section">
+          Latest Announcements
+        </h2>
+
+        ${announcementHTML(3)}
+
+      </div>
+
+    </div>
+
+
+    <div class="card" style="margin-top:15px">
+
+      <h2 class="section">
+        Achievements
+      </h2>
+
+      ${achievementsHTML()}
+
+    </div>
+
+  </div>
+  `;
+}
+
+
+function renderAdminDashboard(){
+
+  const users=streamerList();
+
+  return `
+  <div class="page">
+
+    <div class="head">
+
+      <div class="head-main">
+
+        <h1 class="title">
+          Administrator Dashboard
+        </h1>
+
+        <p class="subtitle">
+          Manage Streamer University.
+        </p>
+
+      </div>
+
+      <button
+        class="btn primary-btn"
+        data-admin-go="streamers"
+      >
+        Manage Streamers
+      </button>
+
+    </div>
+
+
+    <div class="grid stats">
+
+      <div class="card">
+        <div class="stat-label">STREAMERS</div>
+        <div class="stat-value">${users.length}</div>
+        <div class="stat-sub">Accounts</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">ACTIVE</div>
+        <div class="stat-value">
+          ${users.filter(u=>u.status==="active").length}
+        </div>
+        <div class="stat-sub">Active accounts</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">COURSES</div>
+        <div class="stat-value">${database.courses.length}</div>
+        <div class="stat-sub">${totalLessons()} lessons</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">ANNOUNCEMENTS</div>
+        <div class="stat-value">${database.announcements.length}</div>
+        <div class="stat-sub">Published</div>
+      </div>
+
+    </div>
+
+
+    <div class="grid two">
+
+      <div class="card">
+
+        <h2 class="section">
+          Quick Actions
+        </h2>
+
+        <div class="buttons">
+
+          <button
+            class="btn primary-btn"
+            data-create-streamer
+          >
+            Create Streamer
+          </button>
+
+          <button
+            class="btn"
+            data-admin-go="commands"
+          >
+            Command Console
+          </button>
+
+          <button
+            class="btn"
+            data-admin-go="courses"
+          >
+            Manage Courses
+          </button>
+
+          <button
+            class="btn"
+            data-admin-go="announcements"
+          >
+            Announcements
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2 class="section">
+          Database
+        </h2>
+
+        <p class="subtitle">
+          The database is stored locally in this browser.
+          No Firebase or external database is used.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+  `;
+}
+
+
+/* =========================================================
+   COURSES
+========================================================= */
+
+function renderCourses(){
+
+  if(currentCourse){
+    return renderCourse(currentCourse);
+  }
+
+  return `
+  <div class="page">
+
+    <div class="head">
+
+      <div class="head-main">
+
+        <h1 class="title">
+          Courses
+        </h1>
+
+        <p class="subtitle">
+          Learn the skills behind great creator channels.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="grid course-grid">
+
+      ${
+        database.courses.length
+
+        ? database.courses.map(course=>{
+
+          const percent=
+            currentUser.role==="admin"
+            ? 0
+            : coursePercent(currentUser,course);
+
+          return `
+          <div class="card">
+
+            <div class="course-title">
+              ${escapeHTML(course.title)}
+            </div>
+
+            <div class="course-desc">
+              ${escapeHTML(course.description)}
+            </div>
+
+            <div class="progress-row">
+              <span>${course.lessons.length} lessons</span>
+              <span>
+                ${
+                  currentUser.role==="admin"
+                  ? "Admin"
+                  : percent+"%"
+                }
+              </span>
+            </div>
+
+            ${
+              currentUser.role!=="admin"
+              ? `
+                <div class="progress">
+                  <span style="width:${percent}%"></span>
+                </div>
+              `
+              : ""
+            }
+
+            <div class="buttons" style="margin-top:14px">
+
+              <button
+                class="btn primary-btn"
+                data-open-course="${escapeHTML(course.id)}"
+              >
+                Open Course
+              </button>
+
+            </div>
+
+          </div>
+          `;
+
+        }).join("")
+
+        : `
+          <div class="card">
+            <div class="empty">
+              No courses available.
+            </div>
+          </div>
+        `
+      }
+
+    </div>
+
+  </div>
+  `;
+}
+
+
+function renderCourse(courseId){
+
+  const course=database.courses.find(
+    course=>course.id===courseId
+  );
+
+  if(!course){
+    currentCourse=null;
+    return renderCourses();
+  }
+
+  return `
+  <div class="page">
+
+    <div class="head">
+
+      <div class="head-main">
+
+        <button
+          class="btn"
+          data-back-courses
+        >
+          Back to Courses
+        </button>
+
+        <h1 class="title" style="margin-top:14px">
+          ${escapeHTML(course.title)}
+        </h1>
+
+        <p class="subtitle">
+          ${escapeHTML(course.description)}
+        </p>
+
+      </div>
+
+    </div>
+
+
+    ${
+      currentUser.role!=="admin"
+      ? `
+      <div class="card" style="margin-bottom:15px">
+
+        <div class="progress-row">
+          <span>Course Progress</span>
+          <span>${coursePercent(currentUser,course)}%</span>
+        </div>
+
+        <div class="progress">
+          <span
+            style="width:${coursePercent(currentUser,course)}%"
+          ></span>
+        </div>
+
+      </div>
+      `
+      : ""
+    }
+
+
+    <div class="card">
+
+      <h2 class="section">
+        Lessons
+      </h2>
+
+      <div class="lesson-list">
+
+        ${
+          course.lessons.length
+
+          ? course.lessons.map((lesson,index)=>{
+
+            const finished=
+              currentUser.role!=="admin" &&
+              currentUser.completed.includes(lesson.id);
+
+            return `
+            <div class="lesson">
+
+              <div class="lesson-number">
+                ${index+1}
+              </div>
+
+              <div class="lesson-info">
+
+                <div class="lesson-name">
+                  ${escapeHTML(lesson.title)}
+                </div>
+
+                <div class="lesson-meta">
+                  ${
+                    finished
+                    ? "Completed"
+                    : "Lesson"
+                  }
+                </div>
+
+              </div>
+
+              ${
+                finished
+
+                ? `
+                  <span class="done">
+                    COMPLETE
+                  </span>
+                `
+
+                : `
+                  <button
+                    class="btn"
+                    data-open-lesson="${escapeHTML(course.id)}"
+                    data-lesson="${escapeHTML(lesson.id)}"
+                  >
+                    Open
+                  </button>
+                `
+              }
+
+            </div>
+            `;
+
+          }).join("")
+
+          : `
+            <div class="empty">
+              This course has no lessons.
+            </div>
+          `
+        }
+
+      </div>
+
+    </div>
+
+  </div>
+  `;
+}
+
+
+/* =========================================================
+   LESSON MODAL
+========================================================= */
+
+function openLesson(courseId,lessonId){
+
+  const course=database.courses.find(
+    c=>c.id===courseId
+  );
+
+  if(!course) return;
+
+  const lesson=course.lessons.find(
+    l=>l.id===lessonId
+  );
+
+  if(!lesson) return;
+
+  const alreadyDone=
+    currentUser.completed.includes(lesson.id);
+
+  openModal(`
+
+    <div class="modal-head">
+
+      <div class="modal-head-main">
+
+        <h2 class="modal-title">
+          ${escapeHTML(lesson.title)}
+        </h2>
+
+        <div class="modal-sub">
+          ${escapeHTML(course.title)}
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="close"
+        data-close-modal
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div style="
+      color:#b7c0cd;
+      font-size:13px;
+      line-height:1.8;
+    ">
+      ${escapeHTML(lesson.text)}
+    </div>
+
+
+    <div class="note">
+      Completing this lesson awards 25 XP.
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        class="btn"
+        data-close-modal
+      >
+        Close
+      </button>
+
+      ${
+        alreadyDone
+
+        ? `
+          <button
+            type="button"
+            class="btn success"
+            disabled
+          >
+            Completed
+          </button>
+        `
+
+        : `
+          <button
+            type="button"
+            class="btn primary-btn"
+            data-complete-lesson
+            data-course="${escapeHTML(course.id)}"
+            data-lesson="${escapeHTML(lesson.id)}"
+          >
+            Complete Lesson +25 XP
+          </button>
+        `
+      }
+
+    </div>
+
+  `);
+
+  // The lesson modal is created AFTER the page render, so bind
+  // its buttons now instead of waiting for another render.
+  bindEvents();
+}
+
+
+function completeLesson(courseId,lessonId){
+
+  if(currentUser.role==="admin"){
+    showToast(
+      "Admin preview cannot earn XP.",
+      "error"
+    );
+    return;
+  }
+
+  const user=findUser(currentUser.username);
+
+  if(!user){
+    showToast("User no longer exists.","error");
+    return;
+  }
+
+  if(user.completed.includes(lessonId)){
+    closeModal();
+    return;
+  }
+
+  const course=database.courses.find(
+    c=>c.id===courseId
+  );
+
+  if(!course){
+    showToast("Course not found.","error");
+    return;
+  }
+
+  const lesson=course.lessons.find(
+    l=>l.id===lessonId
+  );
+
+  if(!lesson){
+    showToast("Lesson not found.","error");
+    return;
+  }
+
+  user.completed.push(lessonId);
+  user.xp=Math.max(0,user.xp)+25;
+
+  saveDatabase();
+
+  currentUser=findUser(user.username);
+
+  closeModal();
+
+  showToast(
+    "Lesson completed. +25 XP",
+    "success"
+  );
+
+  render();
+}
+
+
+/* =========================================================
+   ANNOUNCEMENTS
+========================================================= */
+
+function renderAnnouncements(){
+
+  return `
+  <div class="page">
+
+    <div class="head">
+
+      <div class="head-main">
+
+        <h1 class="title">
+          Announcements
+        </h1>
+
+        <p class="subtitle">
+          Official Streamer University updates.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      ${announcementHTML()}
+
+    </div>
+
+  </div>
+  `;
+}
+
+
+function announcementHTML(limit=null){
+
+  const list=[
+    ...database.announcements
+  ].sort(
+    (a,b)=>new Date(b.createdAt)-new Date(a.createdAt)
+  );
+
+  const shown=
+    limit
+    ? list.slice(0,limit)
+    : list;
+
+  if(!shown.length){
+    return `
+      <div class="empty">
+        No announcements yet.
+      </div>
+    `;
+  }
+
+  return shown.map(a=>`
+
+    <div class="announcement">
+
+      <div class="announcement-title">
+        ${escapeHTML(a.title)}
+      </div>
+
+      <div class="announcement-message">
+        ${escapeHTML(a.message)}
+      </div>
+
+      <div class="announcement-date">
+        ${dateText(a.createdAt)}
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+function renderProfile(){
+
+  const level=levelFromXP(currentUser.xp);
+
+  return `
+  <div class="page">
+
+    <div class="head">
+
+      <div class="head-main">
+
+        <h1 class="title">
+          ${escapeHTML(currentUser.username)}
+        </h1>
+
+        <p class="subtitle">
+          ${
+            currentUser.role==="admin"
+            ? "Administrator"
+            : "Streamer"
+          }
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="grid stats">
+
+      <div class="card">
+        <div class="stat-label">LEVEL</div>
+        <div class="stat-value">${level}</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">XP</div>
+        <div class="stat-value">${currentUser.xp}</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">LESSONS</div>
+        <div class="stat-value">
+          ${completedLessons(currentUser)}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">JOINED</div>
+        <div class="stat-value" style="font-size:15px">
+          ${dateText(currentUser.createdAt)}
+        </div>
+      </div>
+
+    </div>
+
+
+    ${
+      currentUser.role!=="admin"
+
+      ? `
+      <div class="card" style="margin-top:15px">
+
+        <h2 class="section">
+          Course Progress
+        </h2>
+
+        <div class="grid">
+
+          ${
+            database.courses.map(course=>`
+
+              <div>
+
+                <div class="progress-row">
+                  <span>${escapeHTML(course.title)}</span>
+                  <span>${coursePercent(currentUser,course)}%</span>
+                </div>
+
+                <div class="progress">
+                  <span
+                    style="width:${coursePercent(currentUser,course)}%"
+                  ></span>
+                </div>
+
+              </div>
+
+            `).join("")
+          }
+
+        </div>
+
+      </div>
+      `
+      : ""
+    }
+
+
+    <div class="card" style="margin-top:15px">
+
+      <h2 class="section">
+        Achievements
+      </h2>
+
+      ${achievementsHTML()}
+
+    </div>
+
+  </div>
+  `;
+}
+
+
+function achievementsHTML(){
+
+  const achievements=[
+    [
+      "FIRST LESSON",
+      "Complete your first lesson.",
+      currentUser.xp>=25
+    ],
+    [
+      "100 XP",
+      "Reach 100 XP.",
+      currentUser.xp>=100
+    ],
+    [
+      "500 XP",
+      "Reach 500 XP.",
+      currentUser.xp>=500
+    ],
+    [
+      "COURSE COMPLETE",
+      "Complete an entire course.",
+      database.courses.some(
+        course=>coursePercent(currentUser,course)===100
+      )
+    ],
+    [
+      "ALL COURSES",
+      "Complete every course.",
+      database.courses.length>0 &&
+      database.courses.every(
+        course=>coursePercent(currentUser,course)===100
+      )
+    ]
+  ];
+
+  return `
+  <div
+    class="grid"
+    style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))"
+  >
+
+    ${
+      achievements.map(a=>`
+
+        <div
+          class="command-help"
+          style="
+            border-color:${a[2]?"#255039":"var(--line)"}
+          "
+        >
+
+          <div style="
+            color:${a[2]?"#5ee291":"#707b8c"};
+            font-weight:900;
+          ">
+            ${a[2]?"UNLOCKED":"LOCKED"}
+          </div>
+
+          <div style="
+            color:white;
+            font-weight:900;
+            margin-top:5px;
+          ">
+            ${a[0]}
+          </div>
+
+          <div>
+            ${a[1]}
+          </div>
+
+        </div>
+
+      `).join("")
+    }
+
+  </div>
+  `;
+}
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+function renderAdmin(){
+
+  return `
+  <div class="page">
+
+    <div class="head">
+
+      <div class="head-main">
+
+        <h1 class="title">
+          Admin Panel
+        </h1>
+
+        <p class="subtitle">
+          Complete control over your local Streamer University database.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="tabs">
+
+      ${
+        [
+          ["overview","Overview"],
+          ["streamers","Streamers"],
+          ["commands","Commands"],
+          ["courses","Courses"],
+          ["announcements","Announcements"],
+          ["settings","Settings"]
+        ].map(tab=>`
+
+          <button
+            class="tab ${currentAdminTab===tab[0]?"active":""}"
+            data-admin-tab="${tab[0]}"
+          >
+            ${tab[1]}
+          </button>
+
+        `).join("")
+      }
+
+    </div>
+
+
+    ${
+      currentAdminTab==="overview"
+      ? adminOverview()
+
+      : currentAdminTab==="streamers"
+      ? adminStreamers()
+
+      : currentAdminTab==="commands"
+      ? adminCommands()
+
+      : currentAdminTab==="courses"
+      ? adminCourses()
+
+      : currentAdminTab==="announcements"
+      ? adminAnnouncements()
+
+      : adminSettings()
+    }
+
+  </div>
+  `;
+}
+
+
+function adminOverview(){
+
+  const users=streamerList();
+
+  return `
+
+  <div class="grid stats">
+
+    <div class="card">
+      <div class="stat-label">STREAMERS</div>
+      <div class="stat-value">${users.length}</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">ACTIVE</div>
+      <div class="stat-value">
+        ${users.filter(u=>u.status==="active").length}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">COURSES</div>
+      <div class="stat-value">${database.courses.length}</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">LESSONS</div>
+      <div class="stat-value">${totalLessons()}</div>
+    </div>
+
+  </div>
+
+
+  <div class="grid two" style="margin-top:15px">
+
+    <div class="card">
+
+      <h2 class="section">
+        Quick Actions
+      </h2>
+
+      <div class="buttons">
+
+        <button
+          class="btn primary-btn"
+          data-create-streamer
+        >
+          Create Streamer
+        </button>
+
+        <button
+          class="btn"
+          data-admin-tab="streamers"
+        >
+          Streamer Manager
+        </button>
+
+        <button
+          class="btn"
+          data-admin-tab="commands"
+        >
+          Command Console
+        </button>
+
+        <button
+          class="btn"
+          data-admin-tab="courses"
+        >
+          Course Manager
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2 class="section">
+        Database Status
+      </h2>
+
+      <div class="subtitle">
+        Local database active.
+      </div>
+
+      <div style="
+        margin-top:10px;
+        color:#5ee291;
+        font-size:11px;
+        font-weight:900;
+      ">
+        SAVING AUTOMATICALLY
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
+}
+
+
+function adminStreamers(){
+
+  const users=streamerList();
+
+  return `
+
+  <div class="card">
+
+    <div style="
+      display:flex;
+      gap:8px;
+      margin-bottom:14px;
+    ">
+
+      <input
+        id="streamerSearch"
+        class="input"
+        placeholder="Search streamers..."
+      >
+
+      <button
+        class="btn primary-btn"
+        data-create-streamer
+      >
+        Create
+      </button>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Username</th>
+            <th>Status</th>
+            <th>Level</th>
+            <th>XP</th>
+            <th>Lessons</th>
+            <th>Actions</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="streamerRows">
+
+          ${
+            users.length
+            ? users.map(user=>`
+
+              <tr
+                data-streamer-row
+                data-name="${escapeHTML(user.username.toLowerCase())}"
+              >
+
+                <td>
+                  <strong>
+                    ${escapeHTML(user.username)}
+                  </strong>
+                </td>
+
+                <td>
+                  <span class="badge ${
+                    user.status==="active"
+                    ? "active"
+                    : "suspended"
+                  }">
+                    ${escapeHTML(user.status)}
+                  </span>
+                </td>
+
+                <td>
+                  ${levelFromXP(user.xp)}
+                </td>
+
+                <td>
+                  ${user.xp}
+                </td>
+
+                <td>
+                  ${completedLessons(user)}
+                </td>
+
+                <td>
+
+                  <div class="buttons">
+
+                    <button
+                      class="btn"
+                      data-view-user="${escapeHTML(user.username)}"
+                    >
+                      View
+                    </button>
+
+                    <button
+                      class="btn"
+                      data-manage-user="${escapeHTML(user.username)}"
+                    >
+                      Manage
+                    </button>
+
+                    ${
+                      user.status==="active"
+
+                      ? `
+                        <button
+                          class="btn danger"
+                          data-toggle-status="${escapeHTML(user.username)}"
+                        >
+                          Suspend
+                        </button>
+                      `
+
+                      : `
+                        <button
+                          class="btn success"
+                          data-toggle-status="${escapeHTML(user.username)}"
+                        >
+                          Activate
+                        </button>
+                      `
+                    }
+
+                    <button
+                      class="btn danger"
+                      data-delete-user="${escapeHTML(user.username)}"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `).join("")
+
+            : `
+              <tr>
+                <td colspan="6">
+                  <div class="empty">
+                    No streamer accounts.
+                  </div>
+                </td>
+              </tr>
+            `
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  `;
+}
+
+
+/* =========================================================
+   ADMIN COMMANDS
+========================================================= */
+
+function adminCommands(){
+
+  return `
+
+  <div class="grid command-layout">
+
+    <div class="card">
+
+      <h2 class="section">
+        Command Console
+      </h2>
+
+      <div class="command-input">
+
+        <input
+          id="commandInput"
+          class="input"
+          placeholder="/help"
+          autocomplete="off"
+        >
+
+        <button
+          id="runCommandButton"
+          class="btn primary-btn"
+        >
+          Run
+        </button>
+
+      </div>
+
+
+      <div
+        id="commandOutput"
+        class="command-output"
+      >
+        <div class="command-line info">
+          Streamer University Admin Console
+        </div>
+
+        <div class="command-line">
+          Type /help to see all commands.
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2 class="section">
+        Commands
+      </h2>
+
+      ${commandHelp("/create username password","Create streamer")}
+
+      ${commandHelp("/delete username","Delete streamer")}
+
+      ${commandHelp("/suspend username","Suspend streamer")}
+
+      ${commandHelp("/activate username","Activate streamer")}
+
+      ${commandHelp("/givexp username amount","Give XP")}
+
+      ${commandHelp("/removexp username amount","Remove XP")}
+
+      ${commandHelp("/setxp username amount","Set XP")}
+
+      ${commandHelp("/setlevel username level","Set level")}
+
+      ${commandHelp("/resetprogress username","Reset progress")}
+
+      ${commandHelp("/resetpass username password","Reset password")}
+
+      ${commandHelp("/view username","View account")}
+
+      ${commandHelp("/announce title | message","Publish announcement")}
+
+      ${commandHelp("/clearannouncements","Delete announcements")}
+
+      ${commandHelp("/courses","Show course count")}
+
+      ${commandHelp("/export","Export database")}
+
+      ${commandHelp("/resetdb","Reset database")}
+
+    </div>
+
+  </div>
+
+  `;
+}
+
+
+function commandHelp(command,description){
+
+  return `
+    <div class="command-help">
+      <code>${escapeHTML(command)}</code>
+      <div>${escapeHTML(description)}</div>
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   COMMAND ENGINE
+========================================================= */
+
+function executeCommand(raw){
+
+  const input=raw.trim();
+
+  if(!input) return;
+
+  addCommand("> "+input,"info");
+
+  if(!input.startsWith("/")){
+
+    addCommand(
+      "Commands must start with /.",
+      "err"
+    );
+
+    return;
+  }
+
+  const body=input.slice(1).trim();
+  const parts=body.split(/\s+/);
+  const command=(parts.shift()||"").toLowerCase();
+
+  if(command==="help"){
+
+    addCommand(
+      "Commands: /create /delete /suspend /activate /givexp /removexp /setxp /setlevel /resetprogress /resetpass /view /announce /clearannouncements /courses /export /resetdb",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="create"){
+
+    const username=parts[0];
+    const password=parts[1];
+
+    if(!username || !password){
+
+      addCommand(
+        "Usage: /create username password",
+        "err"
+      );
+
+      return;
+    }
+
+    if(username.toLowerCase()==="alteo"){
+
+      addCommand(
+        "That username is reserved.",
+        "err"
+      );
+
+      return;
+    }
+
+    if(findUser(username)){
+
+      addCommand(
+        "That username already exists.",
+        "err"
+      );
+
+      return;
+    }
+
+    database.users.push({
+      username,
+      password,
+      role:"streamer",
+      status:"active",
+      xp:0,
+      completed:[],
+      createdAt:new Date().toISOString()
+    });
+
+    saveDatabase();
+
+    addCommand(
+      "Created streamer "+username+".",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(
+    command==="delete" ||
+    command==="suspend" ||
+    command==="activate"
+  ){
+
+    const username=parts[0];
+    const user=findUser(username);
+
+    if(!user || user.role==="admin"){
+
+      addCommand(
+        "Streamer not found.",
+        "err"
+      );
+
+      return;
+    }
+
+    if(command==="delete"){
+
+      if(!confirm(
+        "Delete streamer \""+
+        user.username+
+        "\"?"
+      )){
+        addCommand(
+          "Delete cancelled.",
+          "info"
+        );
+        return;
+      }
+
+      database.users=
+        database.users.filter(
+          u=>u!==user
+        );
+
+      saveDatabase();
+
+      addCommand(
+        "Deleted "+username+".",
+        "ok"
+      );
+
+      return;
+    }
+
+    user.status=
+      command==="suspend"
+      ? "suspended"
+      : "active";
+
+    saveDatabase();
+
+    addCommand(
+      username+" is now "+user.status+".",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(
+    command==="givexp" ||
+    command==="removexp" ||
+    command==="setxp"
+  ){
+
+    const username=parts[0];
+    const amount=Number(parts[1]);
+    const user=findUser(username);
+
+    if(!user || user.role==="admin"){
+
+      addCommand(
+        "Streamer not found.",
+        "err"
+      );
+
+      return;
+    }
+
+    if(!Number.isFinite(amount) || amount<0){
+
+      addCommand(
+        "Amount must be 0 or higher.",
+        "err"
+      );
+
+      return;
+    }
+
+    if(command==="givexp"){
+      user.xp+=Math.floor(amount);
+    }
+
+    if(command==="removexp"){
+      user.xp=Math.max(
+        0,
+        user.xp-Math.floor(amount)
+      );
+    }
+
+    if(command==="setxp"){
+      user.xp=Math.floor(amount);
+    }
+
+    saveDatabase();
+
+    addCommand(
+      username+" now has "+user.xp+" XP.",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="setlevel"){
+
+    const username=parts[0];
+    const level=Number(parts[1]);
+    const user=findUser(username);
+
+    if(!user || user.role==="admin"){
+
+      addCommand(
+        "Streamer not found.",
+        "err"
+      );
+
+      return;
+    }
+
+    if(
+      !Number.isInteger(level) ||
+      level<1
+    ){
+
+      addCommand(
+        "Level must be a whole number above 0.",
+        "err"
+      );
+
+      return;
+    }
+
+    user.xp=(level-1)*100;
+
+    saveDatabase();
+
+    addCommand(
+      username+" is now level "+level+".",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="resetprogress"){
+
+    const username=parts[0];
+    const user=findUser(username);
+
+    if(!user || user.role==="admin"){
+
+      addCommand(
+        "Streamer not found.",
+        "err"
+      );
+
+      return;
+    }
+
+    user.xp=0;
+    user.completed=[];
+
+    saveDatabase();
+
+    addCommand(
+      "Progress reset for "+username+".",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="resetpass"){
+
+    const username=parts[0];
+    const password=parts[1];
+    const user=findUser(username);
+
+    if(!user || user.role==="admin"){
+
+      addCommand(
+        "Streamer not found.",
+        "err"
+      );
+
+      return;
+    }
+
+    if(!password){
+
+      addCommand(
+        "Usage: /resetpass username password",
+        "err"
+      );
+
+      return;
+    }
+
+    user.password=password;
+
+    saveDatabase();
+
+    addCommand(
+      "Password changed for "+username+".",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="view"){
+
+    const username=parts[0];
+    const user=findUser(username);
+
+    if(!user){
+
+      addCommand(
+        "User not found.",
+        "err"
+      );
+
+      return;
+    }
+
+    addCommand(
+      user.username+
+      " | "+
+      user.role+
+      " | "+
+      user.status+
+      " | Level "+
+      levelFromXP(user.xp)+
+      " | "+
+      user.xp+
+      " XP | "+
+      completedLessons(user)+
+      " lessons",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="announce"){
+
+    const announceText=
+      input.slice("/announce".length).trim();
+
+    const pieces=announceText.split("|");
+
+    if(pieces.length<2){
+
+      addCommand(
+        "Usage: /announce title | message",
+        "err"
+      );
+
+      return;
+    }
+
+    const title=pieces.shift().trim();
+    const message=pieces.join("|").trim();
+
+    if(!title || !message){
+
+      addCommand(
+        "Title and message are required.",
+        "err"
+      );
+
+      return;
+    }
+
+    database.announcements.push({
+      id:id("announcement"),
+      title,
+      message,
+      createdAt:new Date().toISOString()
+    });
+
+    saveDatabase();
+
+    addCommand(
+      "Announcement published.",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="clearannouncements"){
+
+    if(!confirm(
+      "Delete every announcement?"
+    )){
+      addCommand(
+        "Cancelled.",
+        "info"
+      );
+      return;
+    }
+
+    database.announcements=[];
+
+    saveDatabase();
+
+    addCommand(
+      "All announcements cleared.",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="courses"){
+
+    addCommand(
+      database.courses.length+
+      " courses and "+
+      totalLessons()+
+      " lessons.",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="export"){
+
+    exportDatabase();
+
+    addCommand(
+      "Database exported.",
+      "ok"
+    );
+
+    return;
+  }
+
+
+  if(command==="resetdb"){
+
+    if(!confirm(
+      "RESET THE ENTIRE DATABASE? This cannot be undone."
+    )){
+      addCommand(
+        "Reset cancelled.",
+        "info"
+      );
+      return;
+    }
+
+    database=createDefaultDB();
+    saveDatabase();
+
+    currentUser=findUser("Alteo");
+
+    addCommand(
+      "Database reset successfully.",
+      "ok"
+    );
+
+    render();
+
+    return;
+  }
+
+
+  addCommand(
+    "Unknown command. Type /help.",
+    "err"
+  );
+}
+
+
+function addCommand(text,type=""){
+
+  const output=document.getElementById(
+    "commandOutput"
+  );
+
+  if(!output) return;
+
+  const line=document.createElement("div");
+
+  line.className=
+    "command-line "+
+    type;
+
+  line.textContent=text;
+
+  output.appendChild(line);
+
+  output.scrollTop=output.scrollHeight;
+}
+
+
+/* =========================================================
+   ADMIN COURSES
+========================================================= */
+
+function adminCourses(){
+
+  return `
+
+  <div class="card">
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:15px;
+    ">
+
+      <div>
+
+        <h2 class="section" style="margin:0">
+          Course Manager
+        </h2>
+
+        <div class="subtitle">
+          ${database.courses.length}
+          courses ·
+          ${totalLessons()}
+          lessons
+        </div>
+
+      </div>
+
+      <button
+        class="btn primary-btn"
+        data-create-course
+      >
+        Create Course
+      </button>
+
+    </div>
+
+
+    <div class="grid">
+
+      ${
+        database.courses.map(course=>`
+
+          <div class="card">
+
+            <div style="
+              display:flex;
+              align-items:flex-start;
+              gap:10px;
+            ">
+
+              <div style="flex:1">
+
+                <div class="course-title">
+                  ${escapeHTML(course.title)}
+                </div>
+
+                <div class="course-desc">
+                  ${escapeHTML(course.description)}
+                </div>
+
+              </div>
+
+              <button
+                class="btn danger"
+                data-delete-course="${escapeHTML(course.id)}"
+              >
+                Delete
+              </button>
+
+            </div>
+
+
+            <div class="lesson-list" style="margin-top:13px">
+
+              ${
+                course.lessons.map((lesson,index)=>`
+
+                  <div class="lesson">
+
+                    <div class="lesson-number">
+                      ${index+1}
+                    </div>
+
+                    <div class="lesson-info">
+
+                      <div class="lesson-name">
+                        ${escapeHTML(lesson.title)}
+                      </div>
+
+                    </div>
+
+                    <button
+                      class="btn danger"
+                      data-delete-lesson
+                      data-course="${escapeHTML(course.id)}"
+                      data-lesson="${escapeHTML(lesson.id)}"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                `).join("")
+              }
+
+            </div>
+
+
+            <div class="buttons" style="margin-top:10px">
+
+              <button
+                class="btn"
+                data-add-lesson="${escapeHTML(course.id)}"
+              >
+                Add Lesson
+              </button>
+
+            </div>
+
+          </div>
+
+        `).join("")
+      }
+
+    </div>
+
+  </div>
+
+  `;
+}
+
+
+/* =========================================================
+   ADMIN ANNOUNCEMENTS
+========================================================= */
+
+function adminAnnouncements(){
+
+  return `
+
+  <div class="grid two">
+
+    <div class="card">
+
+      <h2 class="section">
+        Publish Announcement
+      </h2>
+
+      <div class="field">
+
+        <label>Title</label>
+
+        <input
+          id="announcementTitle"
+          class="input"
+          placeholder="Announcement title"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Message</label>
+
+        <textarea
+          id="announcementMessage"
+          class="textarea"
+          placeholder="Announcement message"
+        ></textarea>
+
+      </div>
+
+
+      <button
+        class="btn primary-btn"
+        data-publish-announcement
+      >
+        Publish
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2 class="section">
+        Published Announcements
+      </h2>
+
+      ${
+        database.announcements.length
+
+        ? database.announcements.map(a=>`
+
+          <div class="announcement">
+
+            <div class="announcement-title">
+              ${escapeHTML(a.title)}
+            </div>
+
+            <div class="announcement-message">
+              ${escapeHTML(a.message)}
+            </div>
+
+            <div class="announcement-date">
+              ${dateText(a.createdAt)}
+            </div>
+
+            <div class="buttons" style="margin-top:9px">
+
+              <button
+                class="btn danger"
+                data-delete-announcement="${escapeHTML(a.id)}"
+              >
+                Delete
+              </button>
+
+            </div>
+
+          </div>
+
+        `).join("")
+
+        : `
+          <div class="empty">
+            No announcements.
+          </div>
+        `
+      }
+
+    </div>
+
+  </div>
+
+  `;
+}
+
+
+/* =========================================================
+   ADMIN SETTINGS
+========================================================= */
+
+function adminSettings(){
+
+  const scale=getScaleSettings();
+
+  return `
+
+  <div class="grid two">
+
+    <div class="card">
+
+      <h2 class="section">
+        UI Scale
+      </h2>
+
+      <p class="subtitle">
+        Scale the complete interface for different screen sizes.
+      </p>
+
+      <div class="scale-row" style="
+        display:flex;
+        gap:12px;
+        align-items:center;
+        margin-top:17px;
+      ">
+
+        <input
+          id="scaleSlider"
+          type="range"
+          min="80"
+          max="120"
+          value="${getScalePercent()}"
+          style="flex:1;accent-color:var(--accent)"
+        >
+
+        <strong
+          id="scaleDisplay"
+          style="width:50px;text-align:right"
+        >
+          ${getScalePercent()}%
+        </strong>
+
+      </div>
+
+
+      <div class="buttons" style="margin-top:13px">
+
+        <button
+          class="btn"
+          data-scale-auto
+        >
+          Auto Fit
+        </button>
+
+        <button
+          class="btn"
+          data-scale-100
+        >
+          100%
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2 class="section">
+        Database
+      </h2>
+
+      <div class="buttons">
+
+        <button
+          class="btn primary-btn"
+          data-export-db
+        >
+          Export
+        </button>
+
+        <button
+          class="btn"
+          data-import-db
+        >
+          Import
+        </button>
+
+        <button
+          class="btn danger"
+          data-reset-db
+        >
+          Reset
+        </button>
+
+      </div>
+
+      <input
+        id="databaseFile"
+        type="file"
+        accept=".json,application/json"
+        class="hidden"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="card" style="margin-top:15px">
+
+    <h2 class="section">
+      Database Information
+    </h2>
+
+    <div class="grid stats">
+
+      <div>
+        <div class="stat-label">USERS</div>
+        <div class="stat-value" style="font-size:20px">
+          ${database.users.length}
+        </div>
+      </div>
+
+      <div>
+        <div class="stat-label">STREAMERS</div>
+        <div class="stat-value" style="font-size:20px">
+          ${streamerList().length}
+        </div>
+      </div>
+
+      <div>
+        <div class="stat-label">COURSES</div>
+        <div class="stat-value" style="font-size:20px">
+          ${database.courses.length}
+        </div>
+      </div>
+
+      <div>
+        <div class="stat-label">LESSONS</div>
+        <div class="stat-value" style="font-size:20px">
+          ${totalLessons()}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  `;
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function openModal(html){
+
+  const root=document.getElementById("modalRoot");
+
+  root.innerHTML=`
+
+    <div
+      class="modal-layer"
+      data-modal-background
+    >
+
+      <div class="modal">
+        ${html}
+      </div>
+
+    </div>
+
+  `;
+
+  const background=
+    root.querySelector("[data-modal-background]");
+
+  background.addEventListener(
+    "click",
+    function(event){
+
+      if(event.target===background){
+        closeModal();
+      }
+
+    }
+  );
+
+  document.body.style.overflow="hidden";
+}
+
+
+function closeModal(){
+
+  document.getElementById(
+    "modalRoot"
+  ).innerHTML="";
+
+  document.body.style.overflow="";
+}
+
+
+/* =========================================================
+   CREATE STREAMER
+========================================================= */
+
+function createStreamerModal(){
+
+  openModal(`
+
+    <div class="modal-head">
+
+      <div class="modal-head-main">
+
+        <h2 class="modal-title">
+          Create Streamer
+        </h2>
+
+        <div class="modal-sub">
+          Admin only
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="close"
+        data-close-modal
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="createStreamerForm">
+
+      <div class="field">
+
+        <label>Username</label>
+
+        <input
+          id="newStreamerUsername"
+          class="input"
+          required
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Password</label>
+
+        <input
+          id="newStreamerPassword"
+          class="input"
+          required
+          autocomplete="new-password"
+        >
+
+      </div>
+
+
+      <div
+        id="createStreamerError"
+        class="error"
+      ></div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="btn"
+          data-close-modal
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn primary-btn"
+        >
+          Create Streamer
+        </button>
+
+      </div>
+
+    </form>
+
+  `);
+
+
+  document
+    .getElementById("createStreamerForm")
+    .addEventListener("submit",function(event){
+
+      event.preventDefault();
+
+      const username=
+        document
+        .getElementById("newStreamerUsername")
+        .value
+        .trim();
+
+      const password=
+        document
+        .getElementById("newStreamerPassword")
+        .value;
+
+      const error=
+        document
+        .getElementById("createStreamerError");
+
+
+      if(username.length<2){
+
+        error.textContent=
+          "Username must contain at least 2 characters.";
+
+        return;
+      }
+
+
+      if(password.length<3){
+
+        error.textContent=
+          "Password must contain at least 3 characters.";
+
+        return;
+      }
+
+
+      if(username.toLowerCase()==="alteo"){
+
+        error.textContent=
+          "That username is reserved.";
+
+        return;
+      }
+
+
+      if(findUser(username)){
+
+        error.textContent=
+          "That username already exists.";
+
+        return;
+      }
+
+
+      database.users.push({
+
+        username,
+        password,
+
+        role:"streamer",
+
+        status:"active",
+
+        xp:0,
+
+        completed:[],
+
+        createdAt:new Date().toISOString()
+
+      });
+
+
+      saveDatabase();
+
+      closeModal();
+
+      showToast(
+        "Streamer "+username+" created.",
+        "success"
+      );
+
+      render();
+
+    });
+
+}
+
+
+/* =========================================================
+   VIEW USER
+========================================================= */
+
+function viewUser(username){
+
+  const user=findUser(username);
+
+  if(!user) return;
+
+  openModal(`
+
+    <div class="modal-head">
+
+      <div class="modal-head-main">
+
+        <h2 class="modal-title">
+          ${escapeHTML(user.username)}
+        </h2>
+
+        <div class="modal-sub">
+          Streamer account
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="close"
+        data-close-modal
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="grid stats"
+      style="grid-template-columns:repeat(2,1fr)"
+    >
+
+      <div class="card">
+
+        <div class="stat-label">
+          STATUS
+        </div>
+
+        <div class="stat-value"
+          style="font-size:17px"
+        >
+          ${escapeHTML(user.status)}
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="stat-label">
+          LEVEL
+        </div>
+
+        <div class="stat-value">
+          ${levelFromXP(user.xp)}
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="stat-label">
+          XP
+        </div>
+
+        <div class="stat-value">
+          ${user.xp}
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="stat-label">
+          LESSONS
+        </div>
+
+        <div class="stat-value">
+          ${completedLessons(user)}
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="note">
+      Created ${dateText(user.createdAt)}
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        class="btn"
+        data-close-modal
+      >
+        Close
+      </button>
+
+      <button
+        type="button"
+        class="btn primary-btn"
+        data-manage-from-view="${escapeHTML(user.username)}"
+      >
+        Manage
+      </button>
+
+    </div>
+
+  `);
+}
+
+
+/* =========================================================
+   MANAGE USER
+========================================================= */
+
+function manageUser(username){
+
+  const user=findUser(username);
+
+  if(!user || user.role==="admin") return;
+
+  openModal(`
+
+    <div class="modal-head">
+
+      <div class="modal-head-main">
+
+        <h2 class="modal-title">
+          Manage ${escapeHTML(user.username)}
+        </h2>
+
+      </div>
+
+      <button
+        type="button"
+        class="close"
+        data-close-modal
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>XP</label>
+
+      <input
+        id="manageXP"
+        class="input"
+        type="number"
+        min="0"
+        value="${user.xp}"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>New Password</label>
+
+      <input
+        id="managePassword"
+        class="input"
+        type="text"
+        placeholder="Leave blank to keep current password"
+      >
+
+    </div>
+
+
+    <div class="buttons">
+
+      <button
+        type="button"
+        class="btn"
+        data-xp-action="give"
+      >
+        +25 XP
+      </button>
+
+      <button
+        type="button"
+        class="btn"
+        data-xp-action="remove"
+      >
+        -25 XP
+      </button>
+
+      <button
+        type="button"
+        class="btn"
+        data-xp-action="reset"
+      >
+        Reset Progress
+      </button>
+
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        class="btn"
+        data-close-modal
+      >
+        Cancel
+      </button>
+
+      <button
+        type="button"
+        class="btn primary-btn"
+        data-save-user="${escapeHTML(user.username)}"
+      >
+        Save Changes
+      </button>
+
+    </div>
+
+  `);
+}
+
+
+/* =========================================================
+   CREATE COURSE
+========================================================= */
+
+function createCourseModal(){
+
+  openModal(`
+
+    <div class="modal-head">
+
+      <div class="modal-head-main">
+
+        <h2 class="modal-title">
+          Create Course
+        </h2>
+
+      </div>
+
+      <button
+        type="button"
+        class="close"
+        data-close-modal
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="createCourseForm">
+
+      <div class="field">
+
+        <label>Course Title</label>
+
+        <input
+          id="newCourseTitle"
+          class="input"
+          required
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Description</label>
+
+        <textarea
+          id="newCourseDescription"
+          class="textarea"
+          required
+        ></textarea>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="btn"
+          data-close-modal
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn primary-btn"
+        >
+          Create Course
+        </button>
+
+      </div>
+
+    </form>
+
+  `);
+
+
+  document
+    .getElementById("createCourseForm")
+    .addEventListener("submit",function(event){
+
+      event.preventDefault();
+
+      const title=
+        document
+        .getElementById("newCourseTitle")
+        .value
+        .trim();
+
+      const description=
+        document
+        .getElementById("newCourseDescription")
+        .value
+        .trim();
+
+      if(!title || !description){
+        return;
+      }
+
+      database.courses.push({
+
+        id:id("course"),
+
+        title,
+
+        description,
+
+        lessons:[]
+
+      });
+
+      saveDatabase();
+
+      closeModal();
+
+      showToast(
+        "Course created.",
+        "success"
+      );
+
+      render();
+
+    });
+
+}
+
+
+/* =========================================================
+   ADD LESSON
+========================================================= */
+
+function addLessonModal(courseId){
+
+  const course=database.courses.find(
+    c=>c.id===courseId
+  );
+
+  if(!course) return;
+
+  openModal(`
+
+    <div class="modal-head">
+
+      <div class="modal-head-main">
+
+        <h2 class="modal-title">
+          Add Lesson
+        </h2>
+
+        <div class="modal-sub">
+          ${escapeHTML(course.title)}
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="close"
+        data-close-modal
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="addLessonForm">
+
+      <div class="field">
+
+        <label>Lesson Title</label>
+
+        <input
+          id="newLessonTitle"
+          class="input"
+          required
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Lesson Content</label>
+
+        <textarea
+          id="newLessonText"
+          class="textarea"
+          required
+        ></textarea>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="btn"
+          data-close-modal
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn primary-btn"
+        >
+          Add Lesson
+        </button>
+
+      </div>
+
+    </form>
+
+  `);
+
+
+  document
+    .getElementById("addLessonForm")
+    .addEventListener("submit",function(event){
+
+      event.preventDefault();
+
+      const title=
+        document
+        .getElementById("newLessonTitle")
+        .value
+        .trim();
+
+      const text=
+        document
+        .getElementById("newLessonText")
+        .value
+        .trim();
+
+      if(!title || !text){
+        return;
+      }
+
+      course.lessons.push({
+
+        id:id("lesson"),
+
+        title,
+
+        text
+
+      });
+
+      saveDatabase();
+
+      closeModal();
+
+      showToast(
+        "Lesson added.",
+        "success"
+      );
+
+      render();
+
+    });
+
+}
+
+
+/* =========================================================
+   ADMIN ACTIONS
+========================================================= */
+
+function toggleUserStatus(username){
+
+  const user=findUser(username);
+
+  if(!user || user.role==="admin") return;
+
+  user.status=
+    user.status==="active"
+    ? "suspended"
+    : "active";
+
+  saveDatabase();
+
+  showToast(
+    username+" is now "+user.status+".",
+    "success"
+  );
+
+  render();
+}
+
+
+function deleteUser(username){
+
+  const user=findUser(username);
+
+  if(!user || user.role==="admin") return;
+
+  if(!confirm(
+    "Delete streamer \""+
+    username+
+    "\"?"
+  )){
+    return;
+  }
+
+  database.users=
+    database.users.filter(
+      u=>u!==user
+    );
+
+  saveDatabase();
+
+  showToast(
+    "Streamer deleted.",
+    "success"
+  );
+
+  render();
+}
+
+
+function deleteCourse(courseId){
+
+  const course=database.courses.find(
+    c=>c.id===courseId
+  );
+
+  if(!course) return;
+
+  if(!confirm(
+    "Delete \""+
+    course.title+
+    "\" and all its lessons?"
+  )){
+    return;
+  }
+
+  database.courses=
+    database.courses.filter(
+      c=>c.id!==courseId
+    );
+
+  saveDatabase();
+
+  showToast(
+    "Course deleted.",
+    "success"
+  );
+
+  render();
+}
+
+
+function deleteLesson(courseId,lessonId){
+
+  const course=database.courses.find(
+    c=>c.id===courseId
+  );
+
+  if(!course) return;
+
+  if(!confirm(
+    "Delete this lesson?"
+  )){
+    return;
+  }
+
+  course.lessons=
+    course.lessons.filter(
+      lesson=>lesson.id!==lessonId
+    );
+
+  database.users.forEach(user=>{
+    user.completed=
+      user.completed.filter(
+        id=>id!==lessonId
+      );
+  });
+
+  saveDatabase();
+
+  showToast(
+    "Lesson deleted.",
+    "success"
+  );
+
+  render();
+}
+
+
+function publishAnnouncement(){
+
+  const title=
+    document
+    .getElementById("announcementTitle")
+    ?.value
+    .trim();
+
+  const message=
+    document
+    .getElementById("announcementMessage")
+    ?.value
+    .trim();
+
+  if(!title || !message){
+
+    showToast(
+      "Enter both a title and message.",
+      "error"
+    );
+
+    return;
+  }
+
+  database.announcements.push({
+
+    id:id("announcement"),
+
+    title,
+
+    message,
+
+    createdAt:new Date().toISOString()
+
+  });
+
+  saveDatabase();
+
+  showToast(
+    "Announcement published.",
+    "success"
+  );
+
+  render();
+}
+
+
+function deleteAnnouncement(announcementId){
+
+  if(!confirm(
+    "Delete this announcement?"
+  )){
+    return;
+  }
+
+  database.announcements=
+    database.announcements.filter(
+      a=>a.id!==announcementId
+    );
+
+  saveDatabase();
+
+  showToast(
+    "Announcement deleted.",
+    "success"
+  );
+
+  render();
+}
+
+
+/* =========================================================
+   EXPORT / IMPORT
+========================================================= */
+
+function exportDatabase(){
+
+  const blob=new Blob(
+    [
+      JSON.stringify(
+        database,
+        null,
+        2
+      )
+    ],
+    {
+      type:"application/json"
+    }
+  );
+
+  const url=
+    URL.createObjectURL(blob);
+
+  const link=
+    document.createElement("a");
+
+  link.href=url;
+
+  link.download=
+    "streamer-university-database.json";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  setTimeout(
+    ()=>URL.revokeObjectURL(url),
+    1000
+  );
+}
+
+
+function importDatabase(file){
+
+  const reader=new FileReader();
+
+  reader.onload=function(){
+
+    try{
+
+      const imported=
+        JSON.parse(reader.result);
+
+      if(
+        !imported ||
+        !Array.isArray(imported.users) ||
+        !Array.isArray(imported.courses)
+      ){
+        throw new Error();
+      }
+
+      if(
+        !imported.users.some(
+          user=>
+            user.username==="Alteo" &&
+            user.role==="admin"
+        )
+      ){
+
+        imported.users.unshift({
+
+          username:"Alteo",
+
+          password:"Alteo202",
+
+          role:"admin",
+
+          status:"active",
+
+          xp:0,
+
+          completed:[],
+
+          createdAt:new Date().toISOString()
+
+        });
+
+      }
+
+      if(
+        !Array.isArray(
+          imported.announcements
+        )
+      ){
+        imported.announcements=[];
+      }
+
+      database=imported;
+
+      saveDatabase();
+
+      currentUser=
+        findUser(currentUser.username) ||
+        findUser("Alteo");
+
+      showToast(
+        "Database imported.",
+        "success"
+      );
+
+      render();
+
+    }catch{
+
+      showToast(
+        "Invalid database file.",
+        "error"
+      );
+
+    }
+
+  };
+
+  reader.readAsText(file);
+}
+
+
+/* =========================================================
+   SCALE
+========================================================= */
+
+function getScaleSettings(){
+
+  try{
+
+    const raw=
+      localStorage.getItem(SCALE_KEY);
+
+    if(!raw){
+
+      return {
+        mode:"auto",
+        value:100
+      };
+
+    }
+
+    return JSON.parse(raw);
+
+  }catch{
+
+    return {
+      mode:"auto",
+      value:100
+    };
+
+  }
+}
+
+
+function autoScale(){
+
+  const width=window.innerWidth;
+
+  if(width<=340) return .80;
+
+  if(width<=380) return .85;
+
+  if(width<=430) return .90;
+
+  if(width<=600) return .95;
+
+  return 1;
+}
+
+
+function getScalePercent(){
+
+  const settings=
+    getScaleSettings();
+
+  if(settings.mode==="auto"){
+
+    return Math.round(
+      autoScale()*100
+    );
+
+  }
+
+  return Math.min(
+    120,
+    Math.max(
+      80,
+      Number(settings.value)||100
+    )
+  );
+}
+
+
+function applyScale(){
+
+  const settings=
+    getScaleSettings();
+
+  const scale=
+    settings.mode==="auto"
+    ? autoScale()
+    : Math.min(
+        1.2,
+        Math.max(
+          .8,
+          Number(settings.value)/100
+        )
+      );
+
+  document.documentElement.style
+    .setProperty(
+      "--scale",
+      scale
+    );
+
+  /*
+    zoom is used only for the application.
+    Responsive CSS still handles layout.
+  */
+  document.getElementById("application")
+    ?.style.setProperty(
+      "zoom",
+      scale
+    );
+}
+
+
+function saveScale(mode,value){
+
+  localStorage.setItem(
+    SCALE_KEY,
+    JSON.stringify({
+      mode,
+      value
+    })
+  );
+
+  applyScale();
+}
+
+applyScale();
+
+window.addEventListener(
+  "resize",
+  function(){
+
+    if(
+      getScaleSettings().mode==="auto"
+    ){
+      applyScale();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   ALL DYNAMIC EVENTS
+   IMPORTANT: THIS RUNS AFTER EVERY RENDER
+========================================================= */
+
+function bindEvents(){
+
+  /* OPEN COURSE */
+
+  document
+    .querySelectorAll("[data-open-course]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(event){
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          navigate("courses",this.dataset.openCourse);
+
+        }
+      );
+
+    });
+
+
+  /* BACK */
+
+  document
+    .querySelectorAll("[data-back-courses]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          currentCourse=null;
+
+          navigate("courses");
+
+        }
+      );
+
+    });
+
+
+  /* LESSON OPEN */
+
+  document
+    .querySelectorAll("[data-open-lesson]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          openLesson(
+            this.dataset.openLesson,
+            this.dataset.lesson
+          );
+
+        }
+      );
+
+    });
+
+
+  /* LESSON COMPLETE */
+
+  document
+    .querySelectorAll("[data-complete-lesson]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(event){
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          completeLesson(
+            this.dataset.course,
+            this.dataset.lesson
+          );
+
+        }
+      );
+
+    });
+
+
+  /* CLOSE MODAL */
+
+  document
+    .querySelectorAll("[data-close-modal]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(event){
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          closeModal();
+
+        }
+      );
+
+    });
+
+
+  /* ADMIN TABS */
+
+  document
+    .querySelectorAll("[data-admin-tab]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          currentAdminTab=
+            this.dataset.adminTab;
+
+          render();
+
+        }
+      );
+
+    });
+
+
+  /* ADMIN QUICK NAV */
+
+  document
+    .querySelectorAll("[data-admin-go]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          currentAdminTab=
+            this.dataset.adminGo;
+
+          navigate("admin");
+
+        }
+      );
+
+    });
+
+
+  /* CREATE STREAMER */
+
+  document
+    .querySelectorAll("[data-create-streamer]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        createStreamerModal
+      );
+
+    });
+
+
+  /* VIEW */
+
+  document
+    .querySelectorAll("[data-view-user]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          viewUser(
+            this.dataset.viewUser
+          );
+
+        }
+      );
+
+    });
+
+
+  /* MANAGE */
+
+  document
+    .querySelectorAll("[data-manage-user]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          manageUser(
+            this.dataset.manageUser
+          );
+
+        }
+      );
+
+    });
+
+
+  /* MANAGE FROM VIEW */
+
+  document
+    .querySelectorAll("[data-manage-from-view]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          manageUser(
+            this.dataset.manageFromView
+          );
+
+        }
+      );
+
+    });
+
+
+  /* STATUS */
+
+  document
+    .querySelectorAll("[data-toggle-status]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          toggleUserStatus(
+            this.dataset.toggleStatus
+          );
+
+        }
+      );
+
+    });
+
+
+  /* DELETE USER */
+
+  document
+    .querySelectorAll("[data-delete-user]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          deleteUser(
+            this.dataset.deleteUser
+          );
+
+        }
+      );
+
+    });
+
+
+  /* SEARCH */
+
+  const search=
+    document.getElementById(
+      "streamerSearch"
+    );
+
+  if(search){
+
+    search.addEventListener(
+      "input",
+      function(){
+
+        const query=
+          this.value
+          .toLowerCase();
+
+        document
+          .querySelectorAll(
+            "[data-streamer-row]"
+          )
+          .forEach(row=>{
+
+            row.style.display=
+              row.dataset.name
+                .includes(query)
+              ? ""
+              : "none";
+
+          });
+
+      }
+    );
+
+  }
+
+
+  /* COMMAND */
+
+  const commandInput=
+    document.getElementById(
+      "commandInput"
+    );
+
+  const commandButton=
+    document.getElementById(
+      "runCommandButton"
+    );
+
+  if(commandInput && commandButton){
+
+    commandButton.addEventListener(
+      "click",
+      function(){
+
+        executeCommand(
+          commandInput.value
+        );
+
+        commandInput.value="";
+        commandInput.focus();
+
+      }
+    );
+
+
+    commandInput.addEventListener(
+      "keydown",
+      function(event){
+
+        if(event.key==="Enter"){
+
+          event.preventDefault();
+
+          commandButton.click();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* CREATE COURSE */
+
+  document
+    .querySelectorAll("[data-create-course]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        createCourseModal
+      );
+
+    });
+
+
+  /* ADD LESSON */
+
+  document
+    .querySelectorAll("[data-add-lesson]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          addLessonModal(
+            this.dataset.addLesson
+          );
+
+        }
+      );
+
+    });
+
+
+  /* DELETE COURSE */
+
+  document
+    .querySelectorAll("[data-delete-course]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          deleteCourse(
+            this.dataset.deleteCourse
+          );
+
+        }
+      );
+
+    });
+
+
+  /* DELETE LESSON */
+
+  document
+    .querySelectorAll("[data-delete-lesson]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          deleteLesson(
+            this.dataset.course,
+            this.dataset.lesson
+          );
+
+        }
+      );
+
+    });
+
+
+  /* ANNOUNCEMENT */
+
+  document
+    .querySelectorAll("[data-publish-announcement]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        publishAnnouncement
+      );
+
+    });
+
+
+  /* DELETE ANNOUNCEMENT */
+
+  document
+    .querySelectorAll("[data-delete-announcement]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          deleteAnnouncement(
+            this.dataset.deleteAnnouncement
+          );
+
+        }
+      );
+
+    });
+
+
+  /* MANAGE XP */
+
+  document
+    .querySelectorAll("[data-xp-action]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          const input=
+            document.getElementById(
+              "manageXP"
+            );
+
+          if(!input) return;
+
+          let value=
+            Number(input.value)||0;
+
+          if(
+            this.dataset.xpAction==="give"
+          ){
+            value+=25;
+          }
+
+          if(
+            this.dataset.xpAction==="remove"
+          ){
+            value=Math.max(
+              0,
+              value-25
+            );
+          }
+
+          if(
+            this.dataset.xpAction==="reset"
+          ){
+            value=0;
+          }
+
+          input.value=value;
+
+        }
+      );
+
+    });
+
+
+  /* SAVE USER */
+
+  document
+    .querySelectorAll("[data-save-user]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          const user=
+            findUser(
+              this.dataset.saveUser
+            );
+
+          if(!user) return;
+
+          const xpInput=
+            document.getElementById(
+              "manageXP"
+            );
+
+          const passwordInput=
+            document.getElementById(
+              "managePassword"
+            );
+
+          user.xp=Math.max(
+            0,
+            Math.floor(
+              Number(xpInput?.value)||0
+            )
+          );
+
+          if(
+            passwordInput &&
+            passwordInput.value.trim()
+          ){
+
+            user.password=
+              passwordInput.value;
+
+          }
+
+          saveDatabase();
+
+          closeModal();
+
+          showToast(
+            "Streamer updated.",
+            "success"
+          );
+
+          render();
+
+        }
+      );
+
+    });
+
+
+  /* EXPORT */
+
+  document
+    .querySelectorAll("[data-export-db]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        exportDatabase
+      );
+
+    });
+
+
+  /* IMPORT */
+
+  document
+    .querySelectorAll("[data-import-db]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          document
+            .getElementById("databaseFile")
+            ?.click();
+
+        }
+      );
+
+    });
+
+
+  const importInput=
+    document.getElementById(
+      "databaseFile"
+    );
+
+  if(importInput){
+
+    importInput.addEventListener(
+      "change",
+      function(){
+
+        const file=this.files?.[0];
+
+        if(file){
+          importDatabase(file);
+        }
+
+        this.value="";
+
+      }
+    );
+
+  }
+
+
+  /* RESET DATABASE */
+
+  document
+    .querySelectorAll("[data-reset-db]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          if(!confirm(
+            "Reset the entire database?"
+          )){
+            return;
+          }
+
+          database=
+            createDefaultDB();
+
+          saveDatabase();
+
+          currentUser=
+            findUser("Alteo");
+
+          currentPage="dashboard";
+
+          showToast(
+            "Database reset.",
+            "success"
+          );
+
+          navigate("dashboard");
+
+        }
+      );
+
+    });
+
+
+  /* SCALE */
+
+  const slider=
+    document.getElementById(
+      "scaleSlider"
+    );
+
+  if(slider){
+
+    slider.addEventListener(
+      "input",
+      function(){
+
+        const value=
+          Number(this.value);
+
+        const display=
+          document.getElementById(
+            "scaleDisplay"
+          );
+
+        if(display){
+          display.textContent=
+            value+"%";
+        }
+
+        saveScale(
+          "manual",
+          value
+        );
+
+      }
+    );
+
+  }
+
+
+  document
+    .querySelectorAll("[data-scale-auto]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          saveScale(
+            "auto",
+            100
+          );
+
+          render();
+
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll("[data-scale-100]")
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          saveScale(
+            "manual",
+            100
+          );
+
+          render();
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+const sidebar=
+  document.getElementById(
+    "sidebar"
+  );
+
+const mobileOverlay=
+  document.getElementById(
+    "mobileOverlay"
+  );
+
+document
+  .getElementById("menuButton")
+  .addEventListener(
+    "click",
+    function(){
+
+      sidebar.classList.add("open");
+      mobileOverlay.classList.add("open");
+
+    }
+  );
+
+
+mobileOverlay.addEventListener(
+  "click",
+  closeMobileMenu
+);
+
+
+function closeMobileMenu(){
+
+  sidebar.classList.remove(
+    "open"
+  );
+
+  mobileOverlay.classList.remove(
+    "open"
+  );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message,type=""){
+
+  const root=
+    document.getElementById(
+      "toastRoot"
+    );
+
+  const toast=
+    document.createElement("div");
+
+  toast.className=
+    "toast "+type;
+
+  toast.textContent=message;
+
+  root.appendChild(toast);
+
+  setTimeout(
+    ()=>{
+      toast.style.opacity="0";
+      toast.style.transform=
+        "translateX(15px)";
+
+      setTimeout(
+        ()=>toast.remove(),
+        250
+      );
+    },
+    2800
+  );
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key==="Escape"){
+
+      closeModal();
+      closeMobileMenu();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
+const savedUsername = localStorage.getItem("STREAMER_UNIVERSITY_USER");
+
+if(savedUsername){
+  const savedUser = findUser(savedUsername);
+
+  if(savedUser && savedUser.status !== "suspended"){
+    currentUser = savedUser;
+
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.getElementById("application").classList.remove("hidden");
+
+    updateUserUI();
+    navigate("dashboard");
+  }else{
+    localStorage.removeItem("STREAMER_UNIVERSITY_USER");
+  }
+}
+
+</script>
+
+</body>
+</html>
